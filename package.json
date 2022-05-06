@@ -1,20 +1,21 @@
 {
-  "name": "npm-package-boilerplate",
-  "description": "",
+  "name": "use-street-fighter",
+  "description": "React hooks to enable Street Fighter's commands",
   "author": "RyoSogawa",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/RyoSogawa/XXXX.git"
+    "url": "git+ssh://git@github.com/RyoSogawa/use-street-fighter.git"
   },
   "bugs": {
-    "url": "https://github.com/RyoSogawa/XXXX/issues"
+    "url": "https://github.com/RyoSogawa/use-street-fighter/issues"
   },
-  "homepage": "https://github.com/RyoSogawa/XXXX",
+  "homepage": "https://github.com/RyoSogawa/use-street-fighter",
   "keywords": [
-    "boilerplate",
-    "typescript"
+    "react",
+    "react-hooks",
+    "street-fighter"
   ],
   "source": "./src/index.ts",
   "main": "./lib/index.js",
@@ -77,7 +78,7 @@
     "vitest": "^0.10.0"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
       "prettier --write"
     ]

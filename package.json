@@ -2,6 +2,23 @@
   "name": "use-street-fighter",
   "version": "0.0.1",
   "description": "React custom hooks for detecting Street Fighter-style command inputs",
+  "keywords": [
+    "react",
+    "react-hooks",
+    "street-fighter",
+    "fighting-game",
+    "command-input"
+  ],
+  "author": "RyoSogawa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyoSogawa/use-street-fighter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RyoSogawa/use-street-fighter/issues"
+  },
+  "homepage": "https://github.com/RyoSogawa/use-street-fighter#readme",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -30,20 +47,6 @@
     "react": "^18.3.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
-  },
-  "keywords": [
-    "react",
-    "hooks",
-    "street-fighter",
-    "fighting-game",
-    "command-input",
-    "hadouken"
-  ],
-  "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": ""
   },
   "volta": {
     "node": "22.12.0",

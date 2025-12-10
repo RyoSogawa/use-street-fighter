@@ -47,6 +47,8 @@ function matchesSequence(
  * This hook listens for keyboard inputs and triggers a callback when the classic
  * Street Fighter Hadouken command is successfully entered within the input window.
  *
+ * Supports both Arrow keys and WASD for directional input, and P key for punch.
+ *
  * @param options - Configuration options for the hook
  * @param options.side - Player side, affects which direction is "forward".
  *   - `"1P"` (default): Right is forward. Command is ↓↘→+P (Down, Down-Right, Right, Punch)
@@ -55,8 +57,6 @@ function matchesSequence(
  *   This function is called immediately after a successful command input.
  * @param options.inputWindow - Time window in milliseconds to complete the command.
  *   Defaults to 500ms. Inputs older than this are discarded.
- * @param options.keyMap - Custom key bindings. Defaults to arrow keys + P key.
- *   Override specific keys by providing a partial KeyMap object.
  *
  * @example
  * // Basic usage with 1P side
@@ -64,7 +64,7 @@ function matchesSequence(
  *   useHadoken({
  *     onCommand: () => console.log("Hadouken!"),
  *   });
- *   return <div>Press ↓↘→+P</div>;
+ *   return <div>Press ↓↘→+P (Arrow keys or WASD)</div>;
  * }
  *
  * @example
@@ -86,25 +86,11 @@ function matchesSequence(
  *   onCommand: handleHadouken,
  *   inputWindow: 300,
  * });
- *
- * @example
- * // Custom key bindings (WASD + J for punch)
- * useHadoken({
- *   onCommand: handleHadouken,
- *   keyMap: {
- *     up: "KeyW",
- *     down: "KeyS",
- *     left: "KeyA",
- *     right: "KeyD",
- *     punch: "KeyJ",
- *   },
- * });
  */
 export function useHadoken({
   side = "1P",
   onCommand,
   inputWindow = DEFAULT_INPUT_WINDOW,
-  keyMap,
 }: UseHadokenOptions) {
   const inputBuffer = useRef<InputRecord[]>([]);
   const onCommandRef = useRef(onCommand);
@@ -131,5 +117,5 @@ export function useHadoken({
     [sequence, inputWindow],
   );
 
-  useKeyboardInput({ keyMap, onInput: handleInput });
+  useKeyboardInput({ onInput: handleInput });
 }

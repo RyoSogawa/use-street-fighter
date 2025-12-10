@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
-import { DEFAULT_KEY_MAP, type Direction, type KeyMap } from "./types";
+import { useCallback, useEffect, useRef } from "react";
+import type { Direction } from "./types";
 
 type KeyState = {
   up: boolean;
@@ -18,9 +18,15 @@ type InputEvent = {
 };
 
 type UseKeyboardInputOptions = {
-  keyMap?: Partial<KeyMap>;
   onInput: (event: InputEvent) => void;
 };
+
+const UP_KEYS = ["ArrowUp", "KeyW"];
+const DOWN_KEYS = ["ArrowDown", "KeyS"];
+const LEFT_KEYS = ["ArrowLeft", "KeyA"];
+const RIGHT_KEYS = ["ArrowRight", "KeyD"];
+const PUNCH_KEYS = ["KeyP"];
+const KICK_KEYS = ["KeyK"];
 
 function getDirection(state: KeyState): Direction {
   const { up, down, left, right } = state;
@@ -36,11 +42,7 @@ function getDirection(state: KeyState): Direction {
   return "neutral";
 }
 
-export function useKeyboardInput({ keyMap, onInput }: UseKeyboardInputOptions) {
-  const mergedKeyMap = useMemo(
-    () => ({ ...DEFAULT_KEY_MAP, ...keyMap }),
-    [keyMap],
-  );
+export function useKeyboardInput({ onInput }: UseKeyboardInputOptions) {
   const keyState = useRef<KeyState>({
     up: false,
     down: false,
@@ -67,27 +69,27 @@ export function useKeyboardInput({ keyMap, onInput }: UseKeyboardInputOptions) {
       const state = keyState.current;
       let changed = false;
 
-      if (e.code === mergedKeyMap.up && !state.up) {
+      if (UP_KEYS.includes(e.code) && !state.up) {
         state.up = true;
         changed = true;
       }
-      if (e.code === mergedKeyMap.down && !state.down) {
+      if (DOWN_KEYS.includes(e.code) && !state.down) {
         state.down = true;
         changed = true;
       }
-      if (e.code === mergedKeyMap.left && !state.left) {
+      if (LEFT_KEYS.includes(e.code) && !state.left) {
         state.left = true;
         changed = true;
       }
-      if (e.code === mergedKeyMap.right && !state.right) {
+      if (RIGHT_KEYS.includes(e.code) && !state.right) {
         state.right = true;
         changed = true;
       }
-      if (e.code === mergedKeyMap.punch && !state.punch) {
+      if (PUNCH_KEYS.includes(e.code) && !state.punch) {
         state.punch = true;
         changed = true;
       }
-      if (e.code === mergedKeyMap.kick && !state.kick) {
+      if (KICK_KEYS.includes(e.code) && !state.kick) {
         state.kick = true;
         changed = true;
       }
@@ -101,27 +103,27 @@ export function useKeyboardInput({ keyMap, onInput }: UseKeyboardInputOptions) {
       const state = keyState.current;
       let changed = false;
 
-      if (e.code === mergedKeyMap.up) {
+      if (UP_KEYS.includes(e.code)) {
         state.up = false;
         changed = true;
       }
-      if (e.code === mergedKeyMap.down) {
+      if (DOWN_KEYS.includes(e.code)) {
         state.down = false;
         changed = true;
       }
-      if (e.code === mergedKeyMap.left) {
+      if (LEFT_KEYS.includes(e.code)) {
         state.left = false;
         changed = true;
       }
-      if (e.code === mergedKeyMap.right) {
+      if (RIGHT_KEYS.includes(e.code)) {
         state.right = false;
         changed = true;
       }
-      if (e.code === mergedKeyMap.punch) {
+      if (PUNCH_KEYS.includes(e.code)) {
         state.punch = false;
         changed = true;
       }
-      if (e.code === mergedKeyMap.kick) {
+      if (KICK_KEYS.includes(e.code)) {
         state.kick = false;
         changed = true;
       }
@@ -138,5 +140,5 @@ export function useKeyboardInput({ keyMap, onInput }: UseKeyboardInputOptions) {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [mergedKeyMap, emitInput]);
+  }, [emitInput]);
 }

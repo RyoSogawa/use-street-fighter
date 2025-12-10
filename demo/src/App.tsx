@@ -53,8 +53,8 @@ export function App() {
         </p>
         <p style={styles.keys}>
           {side === "1P"
-            ? "(ArrowDown → ArrowDown+ArrowRight → ArrowRight → P)"
-            : "(ArrowDown → ArrowDown+ArrowLeft → ArrowLeft → P)"}
+            ? "(↓ or S) → (↓+→ or S+D) → (→ or D) → P"
+            : "(↓ or S) → (↓+← or S+A) → (← or A) → P"}
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export function App() {
         <h3>Instructions</h3>
         <ol>
           <li>Select your side (1P or 2P)</li>
-          <li>Enter the Hadouken command using arrow keys + P</li>
+          <li>Enter the Hadouken command using Arrow keys or WASD + P</li>
           <li>The counter increases when the command is detected</li>
         </ol>
       </div>

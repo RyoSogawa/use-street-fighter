@@ -1,8 +1,2 @@
 export { useHadoken } from "./useHadoken";
-export type {
-  Direction,
-  Button,
-  Side,
-  KeyMap,
-  UseHadokenOptions,
-} from "./types";
+export type { Direction, Button, Side, UseHadokenOptions } from "./types";

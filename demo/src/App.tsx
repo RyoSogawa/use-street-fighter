@@ -1,127 +1,186 @@
 import { useCallback, useState } from "react";
-import { type Side, useHadoken } from "use-street-fighter";
+import {
+  type Side,
+  useHadoken,
+  useShoryuken,
+  useTatsumaki,
+} from "use-street-fighter";
+import "./styles.css";
+
+type CommandType = "hadouken" | "shoryuken" | "tatsumaki";
+
+type CommandEffect = {
+  id: number;
+  type: CommandType;
+};
 
 export function App() {
   const [side, setSide] = useState<Side>("1P");
-  const [count, setCount] = useState(0);
-  const [lastTriggered, setLastTriggered] = useState<string | null>(null);
+  const [effects, setEffects] = useState<CommandEffect[]>([]);
+  const [counts, setCounts] = useState({
+    hadouken: 0,
+    shoryuken: 0,
+    tatsumaki: 0,
+  });
 
-  const handleHadoken = useCallback(() => {
-    setCount((c) => c + 1);
-    setLastTriggered(new Date().toLocaleTimeString());
+  const triggerEffect = useCallback((type: CommandType) => {
+    const id = Date.now();
+    setEffects((prev) => [...prev, { id, type }]);
+    setCounts((prev) => ({ ...prev, [type]: prev[type] + 1 }));
+
+    setTimeout(() => {
+      setEffects((prev) => prev.filter((e) => e.id !== id));
+    }, 1500);
   }, []);
 
   useHadoken({
     side,
-    onCommand: handleHadoken,
+    onCommand: () => triggerEffect("hadouken"),
+  });
+
+  useShoryuken({
+    side,
+    onCommand: () => triggerEffect("shoryuken"),
+  });
+
+  useTatsumaki({
+    side,
+    onCommand: () => triggerEffect("tatsumaki"),
   });
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>use-street-fighter Demo</h1>
+    <div className="container">
+      <div className="scroll-bg" />
 
-      <div style={styles.card}>
-        <h2>Side Selection</h2>
-        <div style={styles.buttonGroup}>
+      <header className="header">
+        <h1 className="title">use-street-fighter</h1>
+        <p className="subtitle">Master the Ancient Arts of Command Input</p>
+      </header>
+
+      <div className="side-selector">
+        <span className="side-label">Choose Your Side</span>
+        <div className="side-buttons">
           <button
             type="button"
-            style={{
-              ...styles.button,
-              ...(side === "1P" ? styles.buttonActive : {}),
-            }}
+            className={`side-btn ${side === "1P" ? "active" : ""}`}
             onClick={() => setSide("1P")}
           >
-            1P Side
+            1P
           </button>
           <button
             type="button"
-            style={{
-              ...styles.button,
-              ...(side === "2P" ? styles.buttonActive : {}),
-            }}
+            className={`side-btn ${side === "2P" ? "active" : ""}`}
             onClick={() => setSide("2P")}
           >
-            2P Side
+            2P
           </button>
         </div>
       </div>
 
-      <div style={styles.card}>
-        <h2>Command Input</h2>
-        <p style={styles.command}>
-          {side === "1P" ? "↓ ↘ → + P" : "↓ ↙ ← + P"}
-        </p>
-        <p style={styles.keys}>
-          {side === "1P"
-            ? "(↓ or S) → (↓+→ or S+D) → (→ or D) → P"
-            : "(↓ or S) → (↓+← or S+A) → (← or A) → P"}
-        </p>
+      <div className="commands-grid">
+        <CommandCard
+          name="Hadouken"
+          japanese="波動拳"
+          command={side === "1P" ? "↓ ↘ → + P" : "↓ ↙ ← + P"}
+          notation={side === "1P" ? "236P" : "214P"}
+          count={counts.hadouken}
+          type="hadouken"
+        />
+        <CommandCard
+          name="Shoryuken"
+          japanese="昇龍拳"
+          command={side === "1P" ? "→ ↓ ↘ + P" : "← ↓ ↙ + P"}
+          notation={side === "1P" ? "623P" : "421P"}
+          count={counts.shoryuken}
+          type="shoryuken"
+        />
+        <CommandCard
+          name="Tatsumaki"
+          japanese="竜巻旋風脚"
+          command={side === "1P" ? "↓ ↙ ← + K" : "↓ ↘ → + K"}
+          notation={side === "1P" ? "214K" : "236K"}
+          count={counts.tatsumaki}
+          type="tatsumaki"
+        />
       </div>
 
-      <div style={styles.card}>
-        <h2>Hadouken Count: {count}</h2>
-        {lastTriggered && <p>Last triggered: {lastTriggered}</p>}
+      <div className="instructions">
+        <h3>Controls</h3>
+        <div className="controls-grid">
+          <div className="control-item">
+            <span className="key-group">↑↓←→</span>
+            <span>or</span>
+            <span className="key-group">WASD</span>
+            <span className="control-label">Directions</span>
+          </div>
+          <div className="control-item">
+            <span className="key">P</span>
+            <span className="control-label">Punch</span>
+          </div>
+          <div className="control-item">
+            <span className="key">K</span>
+            <span className="control-label">Kick</span>
+          </div>
+        </div>
       </div>
 
-      <div style={styles.instructions}>
-        <h3>Instructions</h3>
-        <ol>
-          <li>Select your side (1P or 2P)</li>
-          <li>Enter the Hadouken command using Arrow keys or WASD + P</li>
-          <li>The counter increases when the command is detected</li>
-        </ol>
+      {effects.map((effect) => (
+        <EffectOverlay key={effect.id} type={effect.type} />
+      ))}
+    </div>
+  );
+}
+
+function CommandCard({
+  name,
+  japanese,
+  command,
+  notation,
+  count,
+  type,
+}: {
+  name: string;
+  japanese: string;
+  command: string;
+  notation: string;
+  count: number;
+  type: CommandType;
+}) {
+  return (
+    <div className={`command-card ${type}`}>
+      <div className="card-ornament top-left" />
+      <div className="card-ornament top-right" />
+      <div className="card-ornament bottom-left" />
+      <div className="card-ornament bottom-right" />
+
+      <h2 className="command-name">{name}</h2>
+      <p className="command-japanese">{japanese}</p>
+      <div className="command-input">{command}</div>
+      <div className="command-notation">{notation}</div>
+      <div className="command-count">
+        <span className="count-label">Executed</span>
+        <span className="count-value">{count}</span>
       </div>
     </div>
   );
 }
 
-const styles: Record<string, React.CSSProperties> = {
-  container: {
-    maxWidth: "600px",
-    margin: "0 auto",
-    padding: "20px",
-    fontFamily: "system-ui, sans-serif",
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: "30px",
-  },
-  card: {
-    background: "#f5f5f5",
-    borderRadius: "8px",
-    padding: "20px",
-    marginBottom: "20px",
-  },
-  buttonGroup: {
-    display: "flex",
-    gap: "10px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    border: "2px solid #333",
-    borderRadius: "4px",
-    background: "white",
-    cursor: "pointer",
-  },
-  buttonActive: {
-    background: "#333",
-    color: "white",
-  },
-  command: {
-    fontSize: "32px",
-    textAlign: "center",
-    margin: "20px 0",
-  },
-  keys: {
-    textAlign: "center",
-    color: "#666",
-    fontSize: "14px",
-  },
-  instructions: {
-    marginTop: "30px",
-    padding: "20px",
-    background: "#e8f4ff",
-    borderRadius: "8px",
-  },
-};
+function EffectOverlay({ type }: { type: CommandType }) {
+  const effectConfig = {
+    hadouken: { text: "波動拳!", color: "#4da6ff", symbol: "🔥" },
+    shoryuken: { text: "昇龍拳!", color: "#ff6b4d", symbol: "⚡" },
+    tatsumaki: { text: "竜巻旋風脚!", color: "#7b68ee", symbol: "🌀" },
+  };
+
+  const config = effectConfig[type];
+
+  return (
+    <div
+      className="effect-overlay"
+      style={{ "--effect-color": config.color } as React.CSSProperties}
+    >
+      <div className="effect-symbol">{config.symbol}</div>
+      <div className="effect-text">{config.text}</div>
+    </div>
+  );
+}

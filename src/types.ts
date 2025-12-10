@@ -19,8 +19,12 @@ export type Input = {
   timestamp: number;
 };
 
-export type UseHadokenOptions = {
+export type CommandOptions = {
   side?: Side;
   onCommand: () => void;
   inputWindow?: number;
 };
+
+export type UseHadokenOptions = CommandOptions;
+export type UseShoryukenOptions = CommandOptions;
+export type UseTatsumakiOptions = CommandOptions;

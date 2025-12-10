@@ -1,19 +1,19 @@
-import type { UseHadokenOptions } from "./types";
+import type { UseShoryukenOptions } from "./types";
 import { useCommand } from "./useCommand";
 
 /**
- * A React hook that detects Hadouken command input (↓↘→+P / 236P).
+ * A React hook that detects Shoryuken (Dragon Punch) command input (→↓↘+P / 623P).
  *
  * This hook listens for keyboard inputs and triggers a callback when the classic
- * Street Fighter Hadouken command is successfully entered within the input window.
+ * Street Fighter Shoryuken command is successfully entered within the input window.
  *
  * Supports both Arrow keys and WASD for directional input, and P key for punch.
  *
  * @param options - Configuration options for the hook
  * @param options.side - Player side, affects which direction is "forward".
- *   - `"1P"` (default): Right is forward. Command is ↓↘→+P (Down, Down-Right, Right, Punch)
- *   - `"2P"`: Left is forward. Command is ↓↙←+P (Down, Down-Left, Left, Punch)
- * @param options.onCommand - Callback function invoked when Hadouken command is detected.
+ *   - `"1P"` (default): Right is forward. Command is →↓↘+P (Right, Down, Down-Right, Punch)
+ *   - `"2P"`: Left is forward. Command is ←↓↙+P (Left, Down, Down-Left, Punch)
+ * @param options.onCommand - Callback function invoked when Shoryuken command is detected.
  *   This function is called immediately after a successful command input.
  * @param options.inputWindow - Time window in milliseconds to complete the command.
  *   Defaults to 500ms. Inputs older than this are discarded.
@@ -21,10 +21,10 @@ import { useCommand } from "./useCommand";
  * @example
  * // Basic usage with 1P side
  * function App() {
- *   useHadoken({
- *     onCommand: () => console.log("Hadouken!"),
+ *   useShoryuken({
+ *     onCommand: () => console.log("Shoryuken!"),
  *   });
- *   return <div>Press ↓↘→+P (Arrow keys or WASD)</div>;
+ *   return <div>Press →↓↘+P (Arrow keys or WASD)</div>;
  * }
  *
  * @example
@@ -32,33 +32,26 @@ import { useCommand } from "./useCommand";
  * function Player2() {
  *   const [count, setCount] = useState(0);
  *
- *   useHadoken({
+ *   useShoryuken({
  *     side: "2P",
  *     onCommand: () => setCount((c) => c + 1),
  *   });
  *
- *   return <div>Hadouken count: {count}</div>;
+ *   return <div>Shoryuken count: {count}</div>;
  * }
- *
- * @example
- * // Custom input window (300ms) for stricter timing
- * useHadoken({
- *   onCommand: handleHadouken,
- *   inputWindow: 300,
- * });
  */
-export function useHadoken({
+export function useShoryuken({
   side = "1P",
   onCommand,
   inputWindow,
-}: UseHadokenOptions) {
+}: UseShoryukenOptions) {
   useCommand({
     side,
     onCommand,
     inputWindow,
     config: {
-      sequence1P: ["down", "down-right", "right"],
-      sequence2P: ["down", "down-left", "left"],
+      sequence1P: ["right", "down", "down-right"],
+      sequence2P: ["left", "down", "down-left"],
       button: "punch",
     },
   });

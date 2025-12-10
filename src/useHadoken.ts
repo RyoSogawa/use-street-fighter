@@ -41,6 +41,65 @@ function matchesSequence(
   return false;
 }
 
+/**
+ * A React hook that detects Hadouken command input (↓↘→+P / 236P).
+ *
+ * This hook listens for keyboard inputs and triggers a callback when the classic
+ * Street Fighter Hadouken command is successfully entered within the input window.
+ *
+ * @param options - Configuration options for the hook
+ * @param options.side - Player side, affects which direction is "forward".
+ *   - `"1P"` (default): Right is forward. Command is ↓↘→+P (Down, Down-Right, Right, Punch)
+ *   - `"2P"`: Left is forward. Command is ↓↙←+P (Down, Down-Left, Left, Punch)
+ * @param options.onCommand - Callback function invoked when Hadouken command is detected.
+ *   This function is called immediately after a successful command input.
+ * @param options.inputWindow - Time window in milliseconds to complete the command.
+ *   Defaults to 500ms. Inputs older than this are discarded.
+ * @param options.keyMap - Custom key bindings. Defaults to arrow keys + P key.
+ *   Override specific keys by providing a partial KeyMap object.
+ *
+ * @example
+ * // Basic usage with 1P side
+ * function App() {
+ *   useHadoken({
+ *     onCommand: () => console.log("Hadouken!"),
+ *   });
+ *   return <div>Press ↓↘→+P</div>;
+ * }
+ *
+ * @example
+ * // 2P side with custom callback
+ * function Player2() {
+ *   const [count, setCount] = useState(0);
+ *
+ *   useHadoken({
+ *     side: "2P",
+ *     onCommand: () => setCount((c) => c + 1),
+ *   });
+ *
+ *   return <div>Hadouken count: {count}</div>;
+ * }
+ *
+ * @example
+ * // Custom input window (300ms) for stricter timing
+ * useHadoken({
+ *   onCommand: handleHadouken,
+ *   inputWindow: 300,
+ * });
+ *
+ * @example
+ * // Custom key bindings (WASD + J for punch)
+ * useHadoken({
+ *   onCommand: handleHadouken,
+ *   keyMap: {
+ *     up: "KeyW",
+ *     down: "KeyS",
+ *     left: "KeyA",
+ *     right: "KeyD",
+ *     punch: "KeyJ",
+ *   },
+ * });
+ */
 export function useHadoken({
   side = "1P",
   onCommand,

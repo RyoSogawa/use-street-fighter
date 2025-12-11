@@ -1,312 +1,241 @@
 :root {
-  --parchment: #f4e4bc;
-  --parchment-dark: #d4c4a0;
-  --ink: #2a1810;
-  --gold: #c9a227;
-  --gold-light: #e8d48b;
-  --crimson: #8b0000;
-  --crimson-light: #dc143c;
-  --shadow: rgba(42, 24, 16, 0.3);
+  --bg-dark: #0c0c1c;
+  --bg-blue: #1a1a3e;
+  --yellow: #f8d830;
+  --orange: #f89830;
+  --red: #e84040;
+  --white: #f8f8f8;
+  --cyan: #58d8d8;
+  --green: #58b858;
 
-  --font-display: "MedievalSharp", cursive;
-  --font-body: "Crimson Pro", serif;
+  --font-pixel: "Press Start 2P", cursive;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  image-rendering: pixelated;
 }
 
 body {
-  font-family: var(--font-body);
-  background: linear-gradient(135deg, #1a0f0a 0%, #2d1f15 50%, #1a0f0a 100%);
+  font-family: var(--font-pixel);
+  background: var(--bg-dark);
   min-height: 100vh;
-  color: var(--ink);
+  color: var(--white);
+  overflow-x: hidden;
 }
 
 .container {
-  position: relative;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 15px;
   min-height: 100vh;
-}
-
-.scroll-bg {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(
-      ellipse at center,
-      rgba(244, 228, 188, 0.03) 0%,
-      transparent 70%
-    ),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: -1;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 50px;
-  animation: fadeInDown 0.8s ease-out;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(180deg, var(--bg-blue) 0%, var(--bg-dark) 100%);
+  border: 4px solid var(--yellow);
+  position: relative;
+}
+
+.header::before,
+.header::after {
+  content: "★";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--yellow);
+  font-size: 1.2rem;
+}
+
+.header::before {
+  left: 15px;
+}
+
+.header::after {
+  right: 15px;
 }
 
 .title {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  color: var(--gold);
-  text-shadow: 2px 2px 0 var(--ink), 4px 4px 8px rgba(0, 0, 0, 0.5), 0 0 30px
-    rgba(201, 162, 39, 0.3);
+  font-size: 1.1rem;
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--red);
   letter-spacing: 0.05em;
   margin-bottom: 10px;
+  line-height: 1.6;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  font-weight: 200;
-  color: var(--parchment);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.8;
+  font-size: 0.5rem;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
 }
 
 .side-selector {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 40px;
-  animation: fadeInUp 0.8s ease-out 0.2s both;
+  gap: 20px;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: var(--bg-blue);
+  border: 3px solid var(--white);
 }
 
 .side-label {
-  font-family: var(--font-display);
-  color: var(--gold-light);
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  font-size: 0.6rem;
+  color: var(--orange);
 }
 
 .side-buttons {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 
 .side-btn {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  padding: 12px 40px;
-  background: linear-gradient(
-    180deg,
-    var(--parchment) 0%,
-    var(--parchment-dark) 100%
-  );
-  border: 3px solid var(--gold);
-  color: var(--ink);
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  padding: 10px 25px;
+  background: var(--bg-dark);
+  border: 3px solid var(--white);
+  color: var(--white);
   cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 0 var(--ink), 0 6px 10px var(--shadow);
-}
-
-.side-btn::before {
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border: 1px solid var(--gold);
-  opacity: 0.5;
-  pointer-events: none;
+  transition: all 0.1s;
+  text-transform: uppercase;
 }
 
 .side-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--ink), 0 8px 15px var(--shadow);
-}
-
-.side-btn:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 var(--ink), 0 3px 5px var(--shadow);
+  background: var(--bg-blue);
+  border-color: var(--cyan);
+  color: var(--cyan);
 }
 
 .side-btn.active {
-  background: linear-gradient(180deg, var(--crimson) 0%, #5a0000 100%);
-  color: var(--gold-light);
-  border-color: var(--gold-light);
+  background: var(--red);
+  border-color: var(--yellow);
+  color: var(--yellow);
+  box-shadow: 0 0 0 2px var(--bg-dark), 0 0 0 4px var(--yellow);
 }
 
 .commands-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
 }
 
 .command-card {
+  background: var(--bg-blue);
+  border: 3px solid var(--white);
+  padding: 15px 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 8px 20px;
+  align-items: center;
   position: relative;
-  background: linear-gradient(
-    180deg,
-    var(--parchment) 0%,
-    var(--parchment-dark) 100%
-  );
-  padding: 30px 25px;
-  text-align: center;
-  border: 4px solid var(--gold);
-  box-shadow: 0 8px 0 var(--ink), 0 10px 20px var(--shadow), inset 0 0 30px
-    rgba(201, 162, 39, 0.1);
-  animation: fadeInUp 0.8s ease-out both;
-}
-
-.command-card:nth-child(1) {
-  animation-delay: 0.3s;
-}
-.command-card:nth-child(2) {
-  animation-delay: 0.4s;
-}
-.command-card:nth-child(3) {
-  animation-delay: 0.5s;
 }
 
 .command-card::before {
   content: "";
   position: absolute;
-  inset: 8px;
-  border: 2px solid var(--gold);
-  opacity: 0.4;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   pointer-events: none;
 }
 
-.card-ornament {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 3px solid var(--gold);
+.command-card.hadouken {
+  border-color: var(--cyan);
 }
 
-.card-ornament.top-left {
-  top: -3px;
-  left: -3px;
-  border-right: none;
-  border-bottom: none;
+.command-card.shoryuken {
+  border-color: var(--orange);
 }
-.card-ornament.top-right {
-  top: -3px;
-  right: -3px;
-  border-left: none;
-  border-bottom: none;
+
+.command-card.tatsumaki {
+  border-color: var(--green);
 }
-.card-ornament.bottom-left {
-  bottom: -3px;
-  left: -3px;
-  border-right: none;
-  border-top: none;
-}
-.card-ornament.bottom-right {
-  bottom: -3px;
-  right: -3px;
-  border-left: none;
-  border-top: none;
+
+.command-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
 .command-name {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  color: var(--crimson);
-  margin-bottom: 5px;
-  text-shadow: 1px 1px 0 var(--gold-light);
+  font-size: 0.7rem;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--bg-dark);
 }
 
 .command-japanese {
-  font-size: 1.1rem;
-  color: var(--ink);
+  font-size: 0.5rem;
+  color: var(--white);
   opacity: 0.7;
-  margin-bottom: 20px;
-}
-
-.command-input {
-  font-family: var(--font-body);
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--ink);
-  margin-bottom: 8px;
-  letter-spacing: 0.1em;
-}
-
-.command-notation {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--ink);
-  opacity: 0.6;
-  margin-bottom: 20px;
 }
 
 .command-count {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding-top: 15px;
-  border-top: 2px solid var(--gold);
+  grid-row: span 2;
+  text-align: right;
 }
 
 .count-label {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--ink);
+  font-size: 0.4rem;
+  color: var(--white);
   opacity: 0.6;
+  display: block;
+  margin-bottom: 4px;
 }
 
 .count-value {
-  font-family: var(--font-display);
-  font-size: 2.5rem;
-  color: var(--crimson);
-  text-shadow: 2px 2px 0 var(--gold-light);
+  font-size: 1.5rem;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 var(--red);
 }
 
-.command-card.hadouken .command-name {
-  color: #1a5f9e;
+.command-input-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
-.command-card.hadouken .count-value {
-  color: #1a5f9e;
+
+.command-input {
+  font-size: 0.9rem;
+  color: var(--white);
+  letter-spacing: 0.15em;
 }
-.command-card.shoryuken .command-name {
-  color: #b34700;
-}
-.command-card.shoryuken .count-value {
-  color: #b34700;
-}
-.command-card.tatsumaki .command-name {
-  color: #5a3d8a;
-}
-.command-card.tatsumaki .count-value {
-  color: #5a3d8a;
+
+.command-notation {
+  font-size: 0.5rem;
+  color: var(--cyan);
+  opacity: 0.8;
 }
 
 .instructions {
-  background: linear-gradient(
-    180deg,
-    rgba(244, 228, 188, 0.95) 0%,
-    rgba(212, 196, 160, 0.95) 100%
-  );
-  padding: 25px;
-  border: 3px solid var(--gold);
-  box-shadow: 0 4px 0 var(--ink);
-  animation: fadeInUp 0.8s ease-out 0.6s both;
+  background: var(--bg-dark);
+  border: 3px solid var(--yellow);
+  padding: 20px;
 }
 
 .instructions h3 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--crimson);
+  font-size: 0.6rem;
+  color: var(--yellow);
   text-align: center;
-  margin-bottom: 20px;
-  letter-spacing: 0.1em;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 0 var(--red);
 }
 
 .controls-grid {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
@@ -318,43 +247,34 @@ body {
 }
 
 .key-group {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--ink);
-  background: white;
-  padding: 8px 12px;
-  border: 2px solid var(--ink);
-  box-shadow: 2px 2px 0 var(--ink);
+  font-size: 0.55rem;
+  color: var(--white);
+  background: var(--bg-blue);
+  padding: 8px 10px;
+  border: 2px solid var(--white);
 }
 
 .key {
-  font-family: var(--font-body);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--ink);
-  background: white;
-  width: 45px;
-  height: 45px;
+  font-size: 0.7rem;
+  color: var(--bg-dark);
+  background: var(--white);
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--ink);
-  box-shadow: 2px 2px 0 var(--ink);
+  border: 2px solid var(--yellow);
 }
 
 .control-item span:not(.key):not(.key-group):not(.control-label) {
-  font-size: 0.9rem;
-  color: var(--ink);
+  font-size: 0.4rem;
+  color: var(--white);
   opacity: 0.5;
 }
 
 .control-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  opacity: 0.7;
+  font-size: 0.4rem;
+  color: var(--cyan);
 }
 
 .effect-overlay {
@@ -364,118 +284,157 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
+  background: rgba(0, 0, 0, 0.85);
   z-index: 1000;
-  animation: effectIn 0.15s ease-out, effectOut 0.5s ease-in 1s forwards;
-}
-
-.effect-symbol {
-  font-size: 8rem;
-  animation: symbolPulse 0.3s ease-out infinite alternate;
-  filter: drop-shadow(0 0 30px var(--effect-color));
+  animation: flashIn 0.1s ease-out;
 }
 
 .effect-text {
-  font-family: var(--font-display);
-  font-size: 4rem;
+  font-family: var(--font-pixel);
+  font-size: 1.8rem;
   color: var(--effect-color);
-  text-shadow: 0 0 10px var(--effect-color), 0 0 20px var(--effect-color), 0 0
-    40px var(--effect-color), 4px 4px 0 var(--ink);
-  animation: textSlam 0.3s ease-out;
-  letter-spacing: 0.1em;
+  text-shadow: 4px 4px 0 var(--bg-dark), -2px -2px 0 var(--bg-dark), 2px -2px 0
+    var(--bg-dark), -2px 2px 0 var(--bg-dark);
+  animation: textPop 0.3s ease-out;
+  text-align: center;
+  line-height: 1.4;
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.effect-subtitle {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  color: var(--white);
+  margin-top: 15px;
+  animation: fadeIn 0.3s ease-out 0.1s both;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hit-marks {
+  position: absolute;
+  font-size: 2rem;
+  color: var(--yellow);
+  animation: hitSpin 0.5s ease-out;
 }
 
-@keyframes effectIn {
-  from {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.hit-marks.pos1 {
+  top: 20%;
+  left: 25%;
 }
 
-@keyframes effectOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.hit-marks.pos2 {
+  top: 30%;
+  right: 20%;
 }
 
-@keyframes symbolPulse {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
+.hit-marks.pos3 {
+  bottom: 25%;
+  left: 30%;
 }
 
-@keyframes textSlam {
+@keyframes flashIn {
   0% {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.85);
+  }
+}
+
+@keyframes textPop {
+  0% {
+    transform: scale(2);
     opacity: 0;
-    transform: scale(3) translateY(-20px);
   }
   50% {
-    opacity: 1;
     transform: scale(0.9);
   }
   100% {
     transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hitSpin {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.perfect {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--red);
+  animation: perfectFlash 0.8s ease-out forwards;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+@keyframes perfectFlash {
+  0%,
+  20%,
+  40%,
+  60%,
+  80% {
+    opacity: 1;
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
 @media (max-width: 600px) {
   .title {
-    font-size: 2.2rem;
+    font-size: 0.8rem;
   }
 
-  .subtitle {
-    font-size: 0.9rem;
+  .command-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
   }
 
-  .command-input {
-    font-size: 1.5rem;
+  .command-count {
+    grid-row: auto;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .command-header {
+    justify-content: center;
+  }
+
+  .command-input-row {
+    justify-content: center;
   }
 
   .effect-text {
-    font-size: 2.5rem;
-  }
-
-  .effect-symbol {
-    font-size: 5rem;
+    font-size: 1.2rem;
   }
 
   .controls-grid {
-    gap: 20px;
+    gap: 15px;
   }
 }

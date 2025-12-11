@@ -30,7 +30,7 @@ export function App() {
 
     setTimeout(() => {
       setEffects((prev) => prev.filter((e) => e.id !== id));
-    }, 1500);
+    }, 1200);
   }, []);
 
   useHadoken({
@@ -50,15 +50,13 @@ export function App() {
 
   return (
     <div className="container">
-      <div className="scroll-bg" />
-
       <header className="header">
-        <h1 className="title">use-street-fighter</h1>
-        <p className="subtitle">Master the Ancient Arts of Command Input</p>
+        <h1 className="title">USE-STREET-FIGHTER</h1>
+        <p className="subtitle">COMMAND INPUT HOOKS FOR REACT</p>
       </header>
 
       <div className="side-selector">
-        <span className="side-label">Choose Your Side</span>
+        <span className="side-label">PLAYER</span>
         <div className="side-buttons">
           <button
             type="button"
@@ -79,47 +77,47 @@ export function App() {
 
       <div className="commands-grid">
         <CommandCard
-          name="Hadouken"
+          name="HADOUKEN"
           japanese="波動拳"
-          command={side === "1P" ? "↓ ↘ → + P" : "↓ ↙ ← + P"}
-          notation={side === "1P" ? "236P" : "214P"}
+          command={side === "1P" ? "↓ ↘ → P" : "↓ ↙ ← P"}
+          notation={side === "1P" ? "236+P" : "214+P"}
           count={counts.hadouken}
           type="hadouken"
         />
         <CommandCard
-          name="Shoryuken"
+          name="SHORYUKEN"
           japanese="昇龍拳"
-          command={side === "1P" ? "→ ↓ ↘ + P" : "← ↓ ↙ + P"}
-          notation={side === "1P" ? "623P" : "421P"}
+          command={side === "1P" ? "→ ↓ ↘ P" : "← ↓ ↙ P"}
+          notation={side === "1P" ? "623+P" : "421+P"}
           count={counts.shoryuken}
           type="shoryuken"
         />
         <CommandCard
-          name="Tatsumaki"
+          name="TATSUMAKI"
           japanese="竜巻旋風脚"
-          command={side === "1P" ? "↓ ↙ ← + K" : "↓ ↘ → + K"}
-          notation={side === "1P" ? "214K" : "236K"}
+          command={side === "1P" ? "↓ ↙ ← K" : "↓ ↘ → K"}
+          notation={side === "1P" ? "214+K" : "236+K"}
           count={counts.tatsumaki}
           type="tatsumaki"
         />
       </div>
 
       <div className="instructions">
-        <h3>Controls</h3>
+        <h3>- CONTROLS -</h3>
         <div className="controls-grid">
           <div className="control-item">
             <span className="key-group">↑↓←→</span>
             <span>or</span>
             <span className="key-group">WASD</span>
-            <span className="control-label">Directions</span>
+            <span className="control-label">MOVE</span>
           </div>
           <div className="control-item">
             <span className="key">P</span>
-            <span className="control-label">Punch</span>
+            <span className="control-label">PUNCH</span>
           </div>
           <div className="control-item">
             <span className="key">K</span>
-            <span className="control-label">Kick</span>
+            <span className="control-label">KICK</span>
           </div>
         </div>
       </div>
@@ -148,18 +146,17 @@ function CommandCard({
 }) {
   return (
     <div className={`command-card ${type}`}>
-      <div className="card-ornament top-left" />
-      <div className="card-ornament top-right" />
-      <div className="card-ornament bottom-left" />
-      <div className="card-ornament bottom-right" />
-
-      <h2 className="command-name">{name}</h2>
-      <p className="command-japanese">{japanese}</p>
-      <div className="command-input">{command}</div>
-      <div className="command-notation">{notation}</div>
+      <div className="command-header">
+        <h2 className="command-name">{name}</h2>
+        <span className="command-japanese">{japanese}</span>
+      </div>
       <div className="command-count">
-        <span className="count-label">Executed</span>
-        <span className="count-value">{count}</span>
+        <span className="count-label">HIT</span>
+        <span className="count-value">{String(count).padStart(2, "0")}</span>
+      </div>
+      <div className="command-input-row">
+        <span className="command-input">{command}</span>
+        <span className="command-notation">{notation}</span>
       </div>
     </div>
   );
@@ -167,9 +164,9 @@ function CommandCard({
 
 function EffectOverlay({ type }: { type: CommandType }) {
   const effectConfig = {
-    hadouken: { text: "波動拳!", color: "#4da6ff", symbol: "🔥" },
-    shoryuken: { text: "昇龍拳!", color: "#ff6b4d", symbol: "⚡" },
-    tatsumaki: { text: "竜巻旋風脚!", color: "#7b68ee", symbol: "🌀" },
+    hadouken: { text: "HADOUKEN!", japanese: "波動拳", color: "#58d8d8" },
+    shoryuken: { text: "SHORYUKEN!", japanese: "昇龍拳", color: "#f89830" },
+    tatsumaki: { text: "TATSUMAKI!", japanese: "竜巻旋風脚", color: "#58b858" },
   };
 
   const config = effectConfig[type];
@@ -179,8 +176,11 @@ function EffectOverlay({ type }: { type: CommandType }) {
       className="effect-overlay"
       style={{ "--effect-color": config.color } as React.CSSProperties}
     >
-      <div className="effect-symbol">{config.symbol}</div>
+      <div className="hit-marks pos1">★</div>
+      <div className="hit-marks pos2">★</div>
+      <div className="hit-marks pos3">★</div>
       <div className="effect-text">{config.text}</div>
+      <div className="effect-subtitle">{config.japanese}</div>
     </div>
   );
 }

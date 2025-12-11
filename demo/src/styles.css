@@ -232,6 +232,14 @@ body::before {
   letter-spacing: 0.15em;
 }
 
+.command-arrows {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.command-button {
+  font-family: var(--font-pixel);
+}
+
 .command-notation {
   font-size: 0.5rem;
   color: var(--cyan);
@@ -273,6 +281,10 @@ body::before {
   background: rgba(0, 0, 0, 0.5);
   padding: 8px 10px;
   border: 2px solid var(--white);
+}
+
+.key-group.arrows {
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .key {

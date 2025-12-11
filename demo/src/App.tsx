@@ -79,7 +79,8 @@ export function App() {
         <CommandCard
           name="HADOUKEN"
           japanese="波動拳"
-          command={side === "1P" ? "↓ ↘ → P" : "↓ ↙ ← P"}
+          arrows={side === "1P" ? "↓ ↘ →" : "↓ ↙ ←"}
+          button="P"
           notation={side === "1P" ? "236+P" : "214+P"}
           count={counts.hadouken}
           type="hadouken"
@@ -87,7 +88,8 @@ export function App() {
         <CommandCard
           name="SHORYUKEN"
           japanese="昇龍拳"
-          command={side === "1P" ? "→ ↓ ↘ P" : "← ↓ ↙ P"}
+          arrows={side === "1P" ? "→ ↓ ↘" : "← ↓ ↙"}
+          button="P"
           notation={side === "1P" ? "623+P" : "421+P"}
           count={counts.shoryuken}
           type="shoryuken"
@@ -95,7 +97,8 @@ export function App() {
         <CommandCard
           name="TATSUMAKI"
           japanese="竜巻旋風脚"
-          command={side === "1P" ? "↓ ↙ ← K" : "↓ ↘ → K"}
+          arrows={side === "1P" ? "↓ ↙ ←" : "↓ ↘ →"}
+          button="K"
           notation={side === "1P" ? "214+K" : "236+K"}
           count={counts.tatsumaki}
           type="tatsumaki"
@@ -106,7 +109,7 @@ export function App() {
         <h3>- CONTROLS -</h3>
         <div className="controls-grid">
           <div className="control-item">
-            <span className="key-group">↑↓←→</span>
+            <span className="key-group arrows">↑↓←→</span>
             <span>or</span>
             <span className="key-group">WASD</span>
             <span className="control-label">MOVE</span>
@@ -132,14 +135,16 @@ export function App() {
 function CommandCard({
   name,
   japanese,
-  command,
+  arrows,
+  button,
   notation,
   count,
   type,
 }: {
   name: string;
   japanese: string;
-  command: string;
+  arrows: string;
+  button: string;
   notation: string;
   count: number;
   type: CommandType;
@@ -155,7 +160,10 @@ function CommandCard({
         <span className="count-value">{String(count).padStart(2, "0")}</span>
       </div>
       <div className="command-input-row">
-        <span className="command-input">{command}</span>
+        <span className="command-input">
+          <span className="command-arrows">{arrows}</span>{" "}
+          <span className="command-button">{button}</span>
+        </span>
         <span className="command-notation">{notation}</span>
       </div>
     </div>

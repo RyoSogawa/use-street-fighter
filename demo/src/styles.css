@@ -264,6 +264,7 @@ body::before {
 .controls-grid {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 30px;
   flex-wrap: wrap;
 }

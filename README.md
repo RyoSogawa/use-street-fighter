@@ -10,15 +10,46 @@ React custom hooks for detecting Street Fighter-style command inputs.
 npm install use-street-fighter
 ```
 
-## Hooks
+## Commands
 
-| Hook | Command | Notation |
-|------|---------|----------|
-| `useHadoken` | ↓↘→+P | 236P |
-| `useShoryuken` | →↓↘+P | 623P |
-| `useTatsumaki` | ↓↙←+K | 214K |
+| Command | Input | Notation |
+|---------|-------|----------|
+| Hadouken | ↓↘→+P | 236P |
+| Shoryuken | →↓↘+P | 623P |
+| Tatsumaki | ↓↙←+K | 214K |
 
 ## Usage
+
+### useStreetFighter (Recommended)
+
+A unified hook that detects multiple commands. Only commands with provided callbacks are activated.
+
+```tsx
+import { useStreetFighter } from "use-street-fighter";
+
+function App() {
+  useStreetFighter({
+    onHadouken: () => console.log("Hadouken!"),
+    onShoryuken: () => console.log("Shoryuken!"),
+    onTatsumaki: () => console.log("Tatsumaki!"),
+  });
+
+  return <div>Press commands!</div>;
+}
+```
+
+Enable only specific commands:
+
+```tsx
+// Only Hadouken is detected
+useStreetFighter({
+  onHadouken: () => console.log("Hadouken!"),
+});
+```
+
+### Individual Hooks
+
+You can also use individual hooks for each command:
 
 ```tsx
 import { useHadoken, useShoryuken, useTatsumaki } from "use-street-fighter";
@@ -51,6 +82,18 @@ function App() {
 - Kick: `K`
 
 ## Options
+
+### useStreetFighter
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `onHadouken` | `() => void` | - | Callback for Hadouken (↓↘→+P) |
+| `onShoryuken` | `() => void` | - | Callback for Shoryuken (→↓↘+P) |
+| `onTatsumaki` | `() => void` | - | Callback for Tatsumaki (↓↙←+K) |
+| `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
+| `inputWindow` | `number` | `500` | Time window in ms to complete command |
+
+### Individual Hooks
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|

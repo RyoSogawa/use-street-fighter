@@ -34,6 +34,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "pnpm --filter demo dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write ."
@@ -43,10 +45,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^18.3.14",
+    "jsdom": "^27.3.0",
     "react": "^18.3.1",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^4.0.15"
   },
   "volta": {
     "node": "22.18.0",

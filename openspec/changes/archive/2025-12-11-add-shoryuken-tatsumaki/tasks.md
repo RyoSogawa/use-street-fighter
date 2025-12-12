@@ -14,4 +14,4 @@
 
 ## 3. Validation
 - [x] 3.1 Run lint and build
-- [ ] 3.2 Manual test all commands in demo
+- [x] 3.2 Manual test all commands in demo

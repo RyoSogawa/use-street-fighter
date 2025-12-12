@@ -52,6 +52,7 @@ type UseCommandOptions = {
   onCommand: () => void;
   inputWindow?: number;
   config: CommandConfig;
+  enabled?: boolean;
 };
 
 export function useCommand({
@@ -59,6 +60,7 @@ export function useCommand({
   onCommand,
   inputWindow = DEFAULT_INPUT_WINDOW,
   config,
+  enabled = true,
 }: UseCommandOptions) {
   const inputBuffer = useRef<InputRecord[]>([]);
   const onCommandRef = useRef(onCommand);
@@ -73,6 +75,8 @@ export function useCommand({
       kick: boolean;
       timestamp: number;
     }) => {
+      if (!enabled) return;
+
       const { direction, punch, kick, timestamp } = event;
 
       inputBuffer.current.push({ direction, punch, kick, timestamp });
@@ -94,7 +98,7 @@ export function useCommand({
         onCommandRef.current();
       }
     },
-    [sequence, inputWindow, config.button],
+    [enabled, sequence, inputWindow, config.button],
   );
 
   useKeyboardInput({ onInput: handleInput });

@@ -28,3 +28,11 @@ export type CommandOptions = {
 export type UseHadokenOptions = CommandOptions;
 export type UseShoryukenOptions = CommandOptions;
 export type UseTatsumakiOptions = CommandOptions;
+
+export type UseStreetFighterOptions = {
+  side?: Side;
+  inputWindow?: number;
+  onHadouken?: () => void;
+  onShoryuken?: () => void;
+  onTatsumaki?: () => void;
+};

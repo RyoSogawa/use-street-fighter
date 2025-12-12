@@ -1,10 +1,5 @@
 import { useCallback, useState } from "react";
-import {
-  type Side,
-  useHadoken,
-  useShoryuken,
-  useTatsumaki,
-} from "use-street-fighter";
+import { type Side, useStreetFighter } from "use-street-fighter";
 import "./styles.css";
 
 type CommandType = "hadouken" | "shoryuken" | "tatsumaki";
@@ -33,19 +28,11 @@ export function App() {
     }, 1200);
   }, []);
 
-  useHadoken({
+  useStreetFighter({
     side,
-    onCommand: () => triggerEffect("hadouken"),
-  });
-
-  useShoryuken({
-    side,
-    onCommand: () => triggerEffect("shoryuken"),
-  });
-
-  useTatsumaki({
-    side,
-    onCommand: () => triggerEffect("tatsumaki"),
+    onHadouken: () => triggerEffect("hadouken"),
+    onShoryuken: () => triggerEffect("shoryuken"),
+    onTatsumaki: () => triggerEffect("tatsumaki"),
   });
 
   return (

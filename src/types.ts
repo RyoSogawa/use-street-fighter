@@ -39,6 +39,8 @@ export type ChargeCommandOptions = {
 export type UseSonicBoomOptions = ChargeCommandOptions;
 export type UseSpinningBirdKickOptions = ChargeCommandOptions;
 
+export type UseShunGokuSatsuOptions = CommandOptions;
+
 export type UseStreetFighterOptions = {
   side?: Side;
   inputWindow?: number;
@@ -48,4 +50,5 @@ export type UseStreetFighterOptions = {
   onTatsumaki?: () => void;
   onSonicBoom?: () => void;
   onSpinningBirdKick?: () => void;
+  onShunGokuSatsu?: () => void;
 };

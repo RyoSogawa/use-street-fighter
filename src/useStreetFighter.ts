@@ -1,6 +1,7 @@
 import type { Button, Direction, UseStreetFighterOptions } from "./types";
 import { useChargeCommand } from "./useChargeCommand";
 import { useCommand } from "./useCommand";
+import { useShunGokuSatsu } from "./useShunGokuSatsu";
 
 type CommandConfig = {
   sequence1P: Direction[];
@@ -72,6 +73,7 @@ const SPINNING_BIRD_KICK_CONFIG: ChargeCommandConfig = {
  * @param options.onTatsumaki - Callback for Tatsumaki command (↓↙←+K / 214K).
  * @param options.onSonicBoom - Callback for Sonic Boom charge command (←charge→+P / [4]6P).
  * @param options.onSpinningBirdKick - Callback for Spinning Bird Kick charge command (↓charge↑+K / [2]8K).
+ * @param options.onShunGokuSatsu - Callback for Shun Goku Satsu button sequence (P P → K P).
  *
  * @example
  * // Enable all commands
@@ -81,6 +83,7 @@ const SPINNING_BIRD_KICK_CONFIG: ChargeCommandConfig = {
  *   onTatsumaki: () => console.log("Tatsumaki!"),
  *   onSonicBoom: () => console.log("Sonic Boom!"),
  *   onSpinningBirdKick: () => console.log("Spinning Bird Kick!"),
+ *   onShunGokuSatsu: () => console.log("Shun Goku Satsu!"),
  * });
  *
  * @example
@@ -102,6 +105,7 @@ export function useStreetFighter({
   onTatsumaki,
   onSonicBoom,
   onSpinningBirdKick,
+  onShunGokuSatsu,
 }: UseStreetFighterOptions) {
   // Motion commands
   useCommand({
@@ -145,5 +149,13 @@ export function useStreetFighter({
     onCommand: onSpinningBirdKick ?? noop,
     config: SPINNING_BIRD_KICK_CONFIG,
     enabled: !!onSpinningBirdKick,
+  });
+
+  // Button sequence commands
+  useShunGokuSatsu({
+    side,
+    inputWindow: inputWindow ?? 1000,
+    onCommand: onShunGokuSatsu ?? noop,
+    enabled: !!onShunGokuSatsu,
   });
 }

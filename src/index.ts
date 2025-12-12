@@ -3,6 +3,7 @@ export { useShoryuken } from "./useShoryuken";
 export { useTatsumaki } from "./useTatsumaki";
 export { useSonicBoom } from "./useSonicBoom";
 export { useSpinningBirdKick } from "./useSpinningBirdKick";
+export { useShunGokuSatsu } from "./useShunGokuSatsu";
 export { useStreetFighter } from "./useStreetFighter";
 export type {
   Direction,
@@ -15,5 +16,6 @@ export type {
   UseTatsumakiOptions,
   UseSonicBoomOptions,
   UseSpinningBirdKickOptions,
+  UseShunGokuSatsuOptions,
   UseStreetFighterOptions,
 } from "./types";

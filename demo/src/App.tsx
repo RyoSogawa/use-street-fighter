@@ -7,7 +7,8 @@ type CommandType =
   | "shoryuken"
   | "tatsumaki"
   | "sonicboom"
-  | "spinningbirdkick";
+  | "spinningbirdkick"
+  | "shungokusatsu";
 
 type CommandEffect = {
   id: number;
@@ -17,12 +18,14 @@ type CommandEffect = {
 export function App() {
   const [side, setSide] = useState<Side>("1P");
   const [effects, setEffects] = useState<CommandEffect[]>([]);
+  const [secretRevealed, setSecretRevealed] = useState(false);
   const [counts, setCounts] = useState({
     hadouken: 0,
     shoryuken: 0,
     tatsumaki: 0,
     sonicboom: 0,
     spinningbirdkick: 0,
+    shungokusatsu: 0,
   });
 
   const triggerEffect = useCallback((type: CommandType) => {
@@ -35,6 +38,11 @@ export function App() {
     }, 1200);
   }, []);
 
+  const triggerShunGokuSatsu = useCallback(() => {
+    setSecretRevealed(true);
+    triggerEffect("shungokusatsu");
+  }, [triggerEffect]);
+
   useStreetFighter({
     side,
     onHadouken: () => triggerEffect("hadouken"),
@@ -42,6 +50,7 @@ export function App() {
     onTatsumaki: () => triggerEffect("tatsumaki"),
     onSonicBoom: () => triggerEffect("sonicboom"),
     onSpinningBirdKick: () => triggerEffect("spinningbirdkick"),
+    onShunGokuSatsu: triggerShunGokuSatsu,
   });
 
   return (
@@ -117,6 +126,11 @@ export function App() {
           count={counts.spinningbirdkick}
           type="spinningbirdkick"
         />
+        <SecretCommandCard
+          revealed={secretRevealed}
+          side={side}
+          count={counts.shungokusatsu}
+        />
       </div>
 
       <div className="instructions">
@@ -184,6 +198,59 @@ function CommandCard({
   );
 }
 
+function SecretCommandCard({
+  revealed,
+  side,
+  count,
+}: {
+  revealed: boolean;
+  side: Side;
+  count: number;
+}) {
+  if (!revealed) {
+    return (
+      <div className="command-card secret">
+        <div className="command-header">
+          <h2 className="command-name">???</h2>
+          <span className="command-japanese">???</span>
+        </div>
+        <div className="command-count">
+          <span className="count-label">HIT</span>
+          <span className="count-value">00</span>
+        </div>
+        <div className="command-input-row">
+          <span className="command-input">
+            <span className="command-arrows">???</span>
+          </span>
+          <span className="command-notation">???</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="command-card shungokusatsu">
+      <div className="command-header">
+        <h2 className="command-name">SHUN GOKU SATSU</h2>
+        <span className="command-japanese">瞬獄殺</span>
+      </div>
+      <div className="command-count">
+        <span className="count-label">HIT</span>
+        <span className="count-value">{String(count).padStart(2, "0")}</span>
+      </div>
+      <div className="command-input-row">
+        <span className="command-input">
+          <span className="command-arrows">
+            P P {side === "1P" ? "→" : "←"}
+          </span>{" "}
+          <span className="command-button">K P</span>
+        </span>
+        <span className="command-notation">LP LP → LK HP</span>
+      </div>
+    </div>
+  );
+}
+
 function EffectOverlay({ type }: { type: CommandType }) {
   const effectConfig = {
     hadouken: { text: "HADOUKEN!", japanese: "波動拳", color: "#58d8d8" },
@@ -198,6 +265,11 @@ function EffectOverlay({ type }: { type: CommandType }) {
       text: "SPINNING BIRD!",
       japanese: "スピニングバードキック",
       color: "#d8d858",
+    },
+    shungokusatsu: {
+      text: "SHUN GOKU SATSU!",
+      japanese: "瞬獄殺",
+      color: "#ff0000",
     },
   };
 

@@ -29,10 +29,23 @@ export type UseHadokenOptions = CommandOptions;
 export type UseShoryukenOptions = CommandOptions;
 export type UseTatsumakiOptions = CommandOptions;
 
+export type ChargeCommandOptions = {
+  side?: Side;
+  onCommand: () => void;
+  chargeTime?: number;
+  inputWindow?: number;
+};
+
+export type UseSonicBoomOptions = ChargeCommandOptions;
+export type UseSpinningBirdKickOptions = ChargeCommandOptions;
+
 export type UseStreetFighterOptions = {
   side?: Side;
   inputWindow?: number;
+  chargeTime?: number;
   onHadouken?: () => void;
   onShoryuken?: () => void;
   onTatsumaki?: () => void;
+  onSonicBoom?: () => void;
+  onSpinningBirdKick?: () => void;
 };

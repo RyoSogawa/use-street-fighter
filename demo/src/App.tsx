@@ -2,7 +2,12 @@ import { useCallback, useState } from "react";
 import { type Side, useStreetFighter } from "use-street-fighter";
 import "./styles.css";
 
-type CommandType = "hadouken" | "shoryuken" | "tatsumaki";
+type CommandType =
+  | "hadouken"
+  | "shoryuken"
+  | "tatsumaki"
+  | "sonicboom"
+  | "spinningbirdkick";
 
 type CommandEffect = {
   id: number;
@@ -16,6 +21,8 @@ export function App() {
     hadouken: 0,
     shoryuken: 0,
     tatsumaki: 0,
+    sonicboom: 0,
+    spinningbirdkick: 0,
   });
 
   const triggerEffect = useCallback((type: CommandType) => {
@@ -33,6 +40,8 @@ export function App() {
     onHadouken: () => triggerEffect("hadouken"),
     onShoryuken: () => triggerEffect("shoryuken"),
     onTatsumaki: () => triggerEffect("tatsumaki"),
+    onSonicBoom: () => triggerEffect("sonicboom"),
+    onSpinningBirdKick: () => triggerEffect("spinningbirdkick"),
   });
 
   return (
@@ -89,6 +98,24 @@ export function App() {
           notation={side === "1P" ? "214+K" : "236+K"}
           count={counts.tatsumaki}
           type="tatsumaki"
+        />
+        <CommandCard
+          name="SONIC BOOM"
+          japanese="ソニックブーム"
+          arrows={side === "1P" ? "← charge →" : "→ charge ←"}
+          button="P"
+          notation={side === "1P" ? "[4]6+P" : "[6]4+P"}
+          count={counts.sonicboom}
+          type="sonicboom"
+        />
+        <CommandCard
+          name="SPINNING BIRD"
+          japanese="スピニングバードキック"
+          arrows="↓ charge ↑"
+          button="K"
+          notation="[2]8+K"
+          count={counts.spinningbirdkick}
+          type="spinningbirdkick"
         />
       </div>
 
@@ -162,6 +189,16 @@ function EffectOverlay({ type }: { type: CommandType }) {
     hadouken: { text: "HADOUKEN!", japanese: "波動拳", color: "#58d8d8" },
     shoryuken: { text: "SHORYUKEN!", japanese: "昇龍拳", color: "#f89830" },
     tatsumaki: { text: "TATSUMAKI!", japanese: "竜巻旋風脚", color: "#58b858" },
+    sonicboom: {
+      text: "SONIC BOOM!",
+      japanese: "ソニックブーム",
+      color: "#d858d8",
+    },
+    spinningbirdkick: {
+      text: "SPINNING BIRD!",
+      japanese: "スピニングバードキック",
+      color: "#d8d858",
+    },
   };
 
   const config = effectConfig[type];

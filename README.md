@@ -12,11 +12,20 @@ npm install use-street-fighter
 
 ## Commands
 
+### Motion Commands
+
 | Command | Input | Notation |
 |---------|-------|----------|
 | Hadouken | ↓↘→+P | 236P |
 | Shoryuken | →↓↘+P | 623P |
 | Tatsumaki | ↓↙←+K | 214K |
+
+### Charge Commands
+
+| Command | Input | Notation |
+|---------|-------|----------|
+| Sonic Boom | ←charge→+P | [4]6P |
+| Spinning Bird Kick | ↓charge↑+K | [2]8K |
 
 ## Usage
 
@@ -32,6 +41,8 @@ function App() {
     onHadouken: () => console.log("Hadouken!"),
     onShoryuken: () => console.log("Shoryuken!"),
     onTatsumaki: () => console.log("Tatsumaki!"),
+    onSonicBoom: () => console.log("Sonic Boom!"),
+    onSpinningBirdKick: () => console.log("Spinning Bird Kick!"),
   });
 
   return <div>Press commands!</div>;
@@ -52,20 +63,23 @@ useStreetFighter({
 You can also use individual hooks for each command:
 
 ```tsx
-import { useHadoken, useShoryuken, useTatsumaki } from "use-street-fighter";
+import {
+  useHadoken,
+  useShoryuken,
+  useTatsumaki,
+  useSonicBoom,
+  useSpinningBirdKick,
+} from "use-street-fighter";
 
 function App() {
-  useHadoken({
-    onCommand: () => console.log("Hadouken!"),
-  });
+  // Motion commands
+  useHadoken({ onCommand: () => console.log("Hadouken!") });
+  useShoryuken({ onCommand: () => console.log("Shoryuken!") });
+  useTatsumaki({ onCommand: () => console.log("Tatsumaki!") });
 
-  useShoryuken({
-    onCommand: () => console.log("Shoryuken!"),
-  });
-
-  useTatsumaki({
-    onCommand: () => console.log("Tatsumaki!"),
-  });
+  // Charge commands
+  useSonicBoom({ onCommand: () => console.log("Sonic Boom!") });
+  useSpinningBirdKick({ onCommand: () => console.log("Spinning Bird Kick!") });
 
   return <div>Press commands!</div>;
 }
@@ -90,16 +104,28 @@ function App() {
 | `onHadouken` | `() => void` | - | Callback for Hadouken (↓↘→+P) |
 | `onShoryuken` | `() => void` | - | Callback for Shoryuken (→↓↘+P) |
 | `onTatsumaki` | `() => void` | - | Callback for Tatsumaki (↓↙←+K) |
+| `onSonicBoom` | `() => void` | - | Callback for Sonic Boom (←charge→+P) |
+| `onSpinningBirdKick` | `() => void` | - | Callback for Spinning Bird Kick (↓charge↑+K) |
 | `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
-| `inputWindow` | `number` | `500` | Time window in ms to complete command |
+| `inputWindow` | `number` | `500` | Time window in ms to complete motion command |
+| `chargeTime` | `number` | `800` | Time in ms to hold charge direction |
 
-### Individual Hooks
+### Motion Command Hooks (useHadoken, useShoryuken, useTatsumaki)
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `onCommand` | `() => void` | required | Callback when command is detected |
 | `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
 | `inputWindow` | `number` | `500` | Time window in ms to complete command |
+
+### Charge Command Hooks (useSonicBoom, useSpinningBirdKick)
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `onCommand` | `() => void` | required | Callback when command is detected |
+| `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
+| `chargeTime` | `number` | `800` | Time in ms to hold charge direction |
+| `inputWindow` | `number` | `500` | Time window in ms after charge to input release |
 
 ### Side Configuration
 

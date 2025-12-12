@@ -1,13 +1,20 @@
 # use-street-fighter
 
-React custom hooks for detecting Street Fighter-style command inputs.
-
 > **Disclaimer**: This is an unofficial fan-made project and is not affiliated with, endorsed by, or connected to Capcom or the Street Fighter franchise in any way. "Street Fighter" is a registered trademark of Capcom Co., Ltd.
+
+React custom hooks for detecting Street Fighter-style command inputs.
 
 ## Installation
 
 ```bash
 npm install use-street-fighter
+```
+
+Or using other package managers:
+
+```bash
+pnpm add use-street-fighter
+yarn add use-street-fighter
 ```
 
 ## Commands

@@ -27,6 +27,12 @@ const TATSUMAKI_CONFIG: CommandConfig = {
   button: "kick",
 };
 
+const SHINKU_HADOUKEN_CONFIG: CommandConfig = {
+  sequence1P: ["down", "down-right", "right", "down", "down-right", "right"],
+  sequence2P: ["down", "down-left", "left", "down", "down-left", "left"],
+  button: "punch",
+};
+
 type ChargeCommandConfig = {
   chargeDirections1P: Direction[];
   chargeDirections2P: Direction[];
@@ -106,6 +112,7 @@ export function useStreetFighter({
   onSonicBoom,
   onSpinningBirdKick,
   onShunGokuSatsu,
+  onShinkuHadouken,
 }: UseStreetFighterOptions) {
   // Motion commands
   useCommand({
@@ -130,6 +137,15 @@ export function useStreetFighter({
     onCommand: onTatsumaki ?? noop,
     config: TATSUMAKI_CONFIG,
     enabled: !!onTatsumaki,
+  });
+
+  // Super commands
+  useCommand({
+    side,
+    inputWindow: inputWindow ?? 800,
+    onCommand: onShinkuHadouken ?? noop,
+    config: SHINKU_HADOUKEN_CONFIG,
+    enabled: !!onShinkuHadouken,
   });
 
   // Charge commands

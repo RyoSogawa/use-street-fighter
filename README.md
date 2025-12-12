@@ -34,6 +34,12 @@ yarn add use-street-fighter
 | Sonic Boom | ←charge→+P | [4]6P |
 | Spinning Bird Kick | ↓charge↑+K | [2]8K |
 
+### Super Commands
+
+| Command | Input | Notation |
+|---------|-------|----------|
+| Shinku Hadouken | ↓↘→↓↘→+P | 236236P |
+
 ### Button Sequence Commands
 
 | Command | Input | Notation |
@@ -56,6 +62,7 @@ function App() {
     onTatsumaki: () => console.log("Tatsumaki!"),
     onSonicBoom: () => console.log("Sonic Boom!"),
     onSpinningBirdKick: () => console.log("Spinning Bird Kick!"),
+    onShinkuHadouken: () => console.log("Shinku Hadouken!"),
     onShunGokuSatsu: () => console.log("Shun Goku Satsu!"),
   });
 
@@ -83,6 +90,7 @@ import {
   useTatsumaki,
   useSonicBoom,
   useSpinningBirdKick,
+  useShinkuHadouken,
   useShunGokuSatsu,
 } from "use-street-fighter";
 
@@ -95,6 +103,9 @@ function App() {
   // Charge commands
   useSonicBoom({ onCommand: () => console.log("Sonic Boom!") });
   useSpinningBirdKick({ onCommand: () => console.log("Spinning Bird Kick!") });
+
+  // Super commands
+  useShinkuHadouken({ onCommand: () => console.log("Shinku Hadouken!") });
 
   // Button sequence commands
   useShunGokuSatsu({ onCommand: () => console.log("Shun Goku Satsu!") });
@@ -124,9 +135,10 @@ function App() {
 | `onTatsumaki` | `() => void` | - | Callback for Tatsumaki (↓↙←+K) |
 | `onSonicBoom` | `() => void` | - | Callback for Sonic Boom (←charge→+P) |
 | `onSpinningBirdKick` | `() => void` | - | Callback for Spinning Bird Kick (↓charge↑+K) |
+| `onShinkuHadouken` | `() => void` | - | Callback for Shinku Hadouken (↓↘→↓↘→+P) |
 | `onShunGokuSatsu` | `() => void` | - | Callback for Shun Goku Satsu (P P →+K P) |
 | `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
-| `inputWindow` | `number` | `500` | Time window in ms to complete motion command (1000ms for Shun Goku Satsu) |
+| `inputWindow` | `number` | `500` | Time window in ms to complete motion command (800ms for Shinku Hadouken, 1000ms for Shun Goku Satsu) |
 | `chargeTime` | `number` | `800` | Time in ms to hold charge direction |
 
 ### Motion Command Hooks (useHadoken, useShoryuken, useTatsumaki)
@@ -145,6 +157,14 @@ function App() {
 | `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
 | `chargeTime` | `number` | `800` | Time in ms to hold charge direction |
 | `inputWindow` | `number` | `500` | Time window in ms after charge to input release |
+
+### Super Command Hook (useShinkuHadouken)
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `onCommand` | `() => void` | required | Callback when command is detected |
+| `side` | `"1P"` \| `"2P"` | `"1P"` | Player side (affects forward direction) |
+| `inputWindow` | `number` | `800` | Time window in ms to complete command |
 
 ### Button Sequence Hook (useShunGokuSatsu)
 

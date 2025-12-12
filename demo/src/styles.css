@@ -244,6 +244,10 @@ body::before {
   border-color: #d858a8;
 }
 
+.command-card.shinkuhadouken {
+  border-color: #a080ff;
+}
+
 .command-card.shungokusatsu {
   border-color: #333;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), 0 4px 15px rgba(0, 0, 0, 0.4);

@@ -8,6 +8,7 @@ type CommandType =
   | "tatsumaki"
   | "sonicboom"
   | "spinningbirdkick"
+  | "shinkuhadouken"
   | "shungokusatsu";
 
 type CommandEffect = {
@@ -18,13 +19,15 @@ type CommandEffect = {
 export function App() {
   const [side, setSide] = useState<Side>("1P");
   const [effects, setEffects] = useState<CommandEffect[]>([]);
-  const [secretRevealed, setSecretRevealed] = useState(false);
+  const [shinkuRevealed, setShinkuRevealed] = useState(false);
+  const [shunGokuRevealed, setShunGokuRevealed] = useState(false);
   const [counts, setCounts] = useState({
     hadouken: 0,
     shoryuken: 0,
     tatsumaki: 0,
     sonicboom: 0,
     spinningbirdkick: 0,
+    shinkuhadouken: 0,
     shungokusatsu: 0,
   });
 
@@ -38,8 +41,13 @@ export function App() {
     }, 1200);
   }, []);
 
+  const triggerShinkuHadouken = useCallback(() => {
+    setShinkuRevealed(true);
+    triggerEffect("shinkuhadouken");
+  }, [triggerEffect]);
+
   const triggerShunGokuSatsu = useCallback(() => {
-    setSecretRevealed(true);
+    setShunGokuRevealed(true);
     triggerEffect("shungokusatsu");
   }, [triggerEffect]);
 
@@ -50,6 +58,7 @@ export function App() {
     onTatsumaki: () => triggerEffect("tatsumaki"),
     onSonicBoom: () => triggerEffect("sonicboom"),
     onSpinningBirdKick: () => triggerEffect("spinningbirdkick"),
+    onShinkuHadouken: triggerShinkuHadouken,
     onShunGokuSatsu: triggerShunGokuSatsu,
   });
 
@@ -183,8 +192,13 @@ export function App() {
           count={counts.spinningbirdkick}
           type="spinningbirdkick"
         />
-        <SecretCommandCard
-          revealed={secretRevealed}
+        <ShinkuHadoukenCard
+          revealed={shinkuRevealed}
+          side={side}
+          count={counts.shinkuhadouken}
+        />
+        <ShunGokuSatsuCard
+          revealed={shunGokuRevealed}
           side={side}
           count={counts.shungokusatsu}
         />
@@ -235,7 +249,62 @@ function CommandCard({
   );
 }
 
-function SecretCommandCard({
+function ShinkuHadoukenCard({
+  revealed,
+  side,
+  count,
+}: {
+  revealed: boolean;
+  side: Side;
+  count: number;
+}) {
+  if (!revealed) {
+    return (
+      <div className="command-card secret">
+        <div className="command-header">
+          <h2 className="command-name">???</h2>
+          <span className="command-japanese">???</span>
+        </div>
+        <div className="command-count">
+          <span className="count-label">HIT</span>
+          <span className="count-value">00</span>
+        </div>
+        <div className="command-input-row">
+          <span className="command-input">
+            <span className="command-arrows">???</span>
+          </span>
+          <span className="command-notation">???</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="command-card shinkuhadouken">
+      <div className="command-header">
+        <h2 className="command-name">SHINKU HADOUKEN</h2>
+        <span className="command-japanese">真空波動拳</span>
+      </div>
+      <div className="command-count">
+        <span className="count-label">HIT</span>
+        <span className="count-value">{String(count).padStart(2, "0")}</span>
+      </div>
+      <div className="command-input-row">
+        <span className="command-input">
+          <span className="command-arrows">
+            {side === "1P" ? "↓ ↘ → ↓ ↘ →" : "↓ ↙ ← ↓ ↙ ←"}
+          </span>{" "}
+          <span className="command-button">P</span>
+        </span>
+        <span className="command-notation">
+          {side === "1P" ? "236236+P" : "214214+P"}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function ShunGokuSatsuCard({
   revealed,
   side,
   count,
@@ -300,6 +369,11 @@ function EffectOverlay({ type }: { type: CommandType }) {
       text: "SPINNING BIRD!",
       japanese: "スピニングバードキック",
       color: "#d858a8",
+    },
+    shinkuhadouken: {
+      text: "SHINKU HADOUKEN!",
+      japanese: "真空波動拳",
+      color: "#a080ff",
     },
     shungokusatsu: {
       text: "SHUN GOKU SATSU!",

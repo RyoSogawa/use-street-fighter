@@ -27,24 +27,24 @@ const TATSUMAKI_CONFIG: CommandConfig = {
 };
 
 type ChargeCommandConfig = {
-  chargeDirection1P: Direction;
-  chargeDirection2P: Direction;
+  chargeDirections1P: Direction[];
+  chargeDirections2P: Direction[];
   releaseDirection1P: Direction;
   releaseDirection2P: Direction;
   button: Button;
 };
 
 const SONIC_BOOM_CONFIG: ChargeCommandConfig = {
-  chargeDirection1P: "left",
-  chargeDirection2P: "right",
+  chargeDirections1P: ["left", "down-left", "up-left"],
+  chargeDirections2P: ["right", "down-right", "up-right"],
   releaseDirection1P: "right",
   releaseDirection2P: "left",
   button: "punch",
 };
 
 const SPINNING_BIRD_KICK_CONFIG: ChargeCommandConfig = {
-  chargeDirection1P: "down",
-  chargeDirection2P: "down",
+  chargeDirections1P: ["down", "down-left", "down-right"],
+  chargeDirections2P: ["down", "down-left", "down-right"],
   releaseDirection1P: "up",
   releaseDirection2P: "up",
   button: "kick",

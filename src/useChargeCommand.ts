@@ -3,8 +3,8 @@ import type { Button, Direction, Side } from "./types";
 import { useKeyboardInput } from "./useKeyboardInput";
 
 type ChargeCommandConfig = {
-  chargeDirection1P: Direction;
-  chargeDirection2P: Direction;
+  chargeDirections1P: Direction[];
+  chargeDirections2P: Direction[];
   releaseDirection1P: Direction;
   releaseDirection2P: Direction;
   button: Button;
@@ -35,8 +35,8 @@ export function useChargeCommand({
   const onCommandRef = useRef(onCommand);
   onCommandRef.current = onCommand;
 
-  const chargeDirection =
-    side === "1P" ? config.chargeDirection1P : config.chargeDirection2P;
+  const chargeDirections =
+    side === "1P" ? config.chargeDirections1P : config.chargeDirections2P;
   const releaseDirection =
     side === "1P" ? config.releaseDirection1P : config.releaseDirection2P;
 
@@ -51,9 +51,10 @@ export function useChargeCommand({
 
       const { direction, punch, kick, timestamp } = event;
       const buttonPressed = config.button === "punch" ? punch : kick;
+      const isCharging = chargeDirections.includes(direction);
 
       // Check if currently charging
-      if (direction === chargeDirection) {
+      if (isCharging) {
         if (chargeStartTime.current === null) {
           chargeStartTime.current = timestamp;
         }
@@ -83,7 +84,7 @@ export function useChargeCommand({
     },
     [
       enabled,
-      chargeDirection,
+      chargeDirections,
       releaseDirection,
       chargeTime,
       inputWindow,

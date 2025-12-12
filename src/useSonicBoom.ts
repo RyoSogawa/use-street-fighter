@@ -45,8 +45,8 @@ export function useSonicBoom({
     chargeTime,
     inputWindow,
     config: {
-      chargeDirection1P: "left",
-      chargeDirection2P: "right",
+      chargeDirections1P: ["left", "down-left", "up-left"],
+      chargeDirections2P: ["right", "down-right", "up-right"],
       releaseDirection1P: "right",
       releaseDirection2P: "left",
       button: "punch",

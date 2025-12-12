@@ -46,8 +46,8 @@ export function useSpinningBirdKick({
     chargeTime,
     inputWindow,
     config: {
-      chargeDirection1P: "down",
-      chargeDirection2P: "down",
+      chargeDirections1P: ["down", "down-left", "down-right"],
+      chargeDirections2P: ["down", "down-left", "down-right"],
       releaseDirection1P: "up",
       releaseDirection2P: "up",
       button: "kick",

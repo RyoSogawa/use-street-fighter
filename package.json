@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/RyoSogawa/use-street-fighting-command/issues"
   },
-  "homepage": "https://github.com/RyoSogawa/use-street-fighting-command#readme",
+  "homepage": "https://use-street-fighting-command.vercel.app/",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

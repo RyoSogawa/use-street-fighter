@@ -6,6 +6,8 @@
 
 React custom hooks for detecting Street Fighter-style command inputs.
 
+[Demo](https://use-street-fighting-command.vercel.app/)
+
 ## Installation
 
 ```bash

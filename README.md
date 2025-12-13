@@ -1,5 +1,7 @@
 # use-street-fighting-command
 
+![use-street-fighting-command](./hero.png)
+
 > **Disclaimer**: This is an unofficial fan-made project and is not affiliated with, endorsed by, or connected to Capcom or the Street Fighter franchise in any way. "Street Fighter" is a registered trademark of Capcom Co., Ltd.
 
 React custom hooks for detecting Street Fighter-style command inputs.

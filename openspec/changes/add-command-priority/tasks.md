@@ -10,5 +10,5 @@
 
 ## 3. Validation
 - [x] 3.1 Run all existing tests and ensure passing
-- [ ] 3.2 Manual test in demo: verify Shinku Hadouken doesn't trigger Hadouken
+- [x] 3.2 Manual test in demo: verify Shinku Hadouken doesn't trigger Hadouken
 - [x] 3.3 Run lint and build

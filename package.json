@@ -1,6 +1,6 @@
 {
   "name": "use-street-fighting-command",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "React custom hooks for detecting Street Fighter-style command inputs",
   "keywords": [
     "react",
@@ -30,7 +30,9 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "pnpm --filter demo dev",

@@ -1,4 +1,8 @@
-import type { Button, Direction, UseStreetFighterOptions } from "./types";
+import type {
+  Button,
+  Direction,
+  UseStreetFightingCommandOptions,
+} from "./types";
 import { useChargeCommand } from "./useChargeCommand";
 import { useCommand } from "./useCommand";
 import { useShunGokuSatsu } from "./useShunGokuSatsu";
@@ -83,7 +87,7 @@ const SPINNING_BIRD_KICK_CONFIG: ChargeCommandConfig = {
  *
  * @example
  * // Enable all commands
- * useStreetFighter({
+ * useStreetFightingCommand({
  *   onHadouken: () => console.log("Hadouken!"),
  *   onShoryuken: () => console.log("Shoryuken!"),
  *   onTatsumaki: () => console.log("Tatsumaki!"),
@@ -94,7 +98,7 @@ const SPINNING_BIRD_KICK_CONFIG: ChargeCommandConfig = {
  *
  * @example
  * // Enable only charge commands with custom charge time
- * useStreetFighter({
+ * useStreetFightingCommand({
  *   chargeTime: 500,
  *   onSonicBoom: handleSonicBoom,
  *   onSpinningBirdKick: handleSpinningBirdKick,
@@ -102,7 +106,7 @@ const SPINNING_BIRD_KICK_CONFIG: ChargeCommandConfig = {
  */
 const noop = () => {};
 
-export function useStreetFighter({
+export function useStreetFightingCommand({
   side = "1P",
   inputWindow,
   chargeTime,
@@ -113,7 +117,7 @@ export function useStreetFighter({
   onSpinningBirdKick,
   onShunGokuSatsu,
   onShinkuHadouken,
-}: UseStreetFighterOptions) {
+}: UseStreetFightingCommandOptions) {
   // Motion commands
   useCommand({
     side,

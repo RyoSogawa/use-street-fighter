@@ -1,5 +1,8 @@
 import { useCallback, useState } from "react";
-import { type Side, useStreetFighter } from "use-street-fighter";
+import {
+  type Side,
+  useStreetFightingCommand,
+} from "use-street-fighting-command";
 import "./styles.css";
 
 type CommandType =
@@ -51,7 +54,7 @@ export function App() {
     triggerEffect("shungokusatsu");
   }, [triggerEffect]);
 
-  useStreetFighter({
+  useStreetFightingCommand({
     side,
     onHadouken: () => triggerEffect("hadouken"),
     onShoryuken: () => triggerEffect("shoryuken"),
@@ -65,7 +68,7 @@ export function App() {
   return (
     <div className="container">
       <a
-        href="https://github.com/RyoSogawa/use-street-fighter"
+        href="https://github.com/RyoSogawa/use-street-fighting-command"
         className="github-corner"
         target="_blank"
         rel="noopener noreferrer"
@@ -87,12 +90,14 @@ export function App() {
         </svg>
       </a>
       <header className="header">
-        <h1 className="title">USE-STREET-FIGHTER</h1>
+        <h1 className="title">USE-STREET-FIGHTING-COMMAND</h1>
         <p className="subtitle">COMMAND INPUT HOOKS FOR REACT</p>
         <p className="disclaimer">
           This is an unofficial fan-made project. Not affiliated with Capcom.
         </p>
-        <code className="install-command">npm install use-street-fighter</code>
+        <code className="install-command">
+          npm install use-street-fighting-command
+        </code>
       </header>
 
       <div className="controls-panel">

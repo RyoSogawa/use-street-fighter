@@ -43,7 +43,7 @@ export type UseShunGokuSatsuOptions = CommandOptions;
 
 export type UseShinkuHadoukenOptions = CommandOptions;
 
-export type UseStreetFighterOptions = {
+export type UseStreetFightingCommandOptions = {
   side?: Side;
   inputWindow?: number;
   chargeTime?: number;

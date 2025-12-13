@@ -1,5 +1,5 @@
 {
-  "name": "use-street-fighter",
+  "name": "use-street-fighting-command",
   "version": "0.0.1",
   "description": "React custom hooks for detecting Street Fighter-style command inputs",
   "keywords": [
@@ -13,12 +13,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RyoSogawa/use-street-fighter.git"
+    "url": "git+https://github.com/RyoSogawa/use-street-fighting-command.git"
   },
   "bugs": {
-    "url": "https://github.com/RyoSogawa/use-street-fighter/issues"
+    "url": "https://github.com/RyoSogawa/use-street-fighting-command/issues"
   },
-  "homepage": "https://github.com/RyoSogawa/use-street-fighter#readme",
+  "homepage": "https://github.com/RyoSogawa/use-street-fighting-command#readme",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

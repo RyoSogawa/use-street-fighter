@@ -5,7 +5,7 @@ export { useSonicBoom } from "./useSonicBoom";
 export { useSpinningBirdKick } from "./useSpinningBirdKick";
 export { useShunGokuSatsu } from "./useShunGokuSatsu";
 export { useShinkuHadouken } from "./useShinkuHadouken";
-export { useStreetFighter } from "./useStreetFighter";
+export { useStreetFightingCommand } from "./useStreetFightingCommand";
 export type {
   Direction,
   Button,
@@ -19,5 +19,5 @@ export type {
   UseSpinningBirdKickOptions,
   UseShunGokuSatsuOptions,
   UseShinkuHadoukenOptions,
-  UseStreetFighterOptions,
+  UseStreetFightingCommandOptions,
 } from "./types";

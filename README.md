@@ -1,4 +1,4 @@
-# use-street-fighter
+# use-street-fighting-command
 
 > **Disclaimer**: This is an unofficial fan-made project and is not affiliated with, endorsed by, or connected to Capcom or the Street Fighter franchise in any way. "Street Fighter" is a registered trademark of Capcom Co., Ltd.
 
@@ -7,14 +7,14 @@ React custom hooks for detecting Street Fighter-style command inputs.
 ## Installation
 
 ```bash
-npm install use-street-fighter
+npm install use-street-fighting-command
 ```
 
 Or using other package managers:
 
 ```bash
-pnpm add use-street-fighter
-yarn add use-street-fighter
+pnpm add use-street-fighting-command
+yarn add use-street-fighting-command
 ```
 
 ## Commands
@@ -48,15 +48,15 @@ yarn add use-street-fighter
 
 ## Usage
 
-### useStreetFighter (Recommended)
+### useStreetFightingCommand (Recommended)
 
 A unified hook that detects multiple commands. Only commands with provided callbacks are activated.
 
 ```tsx
-import { useStreetFighter } from "use-street-fighter";
+import { useStreetFightingCommand } from "use-street-fighting-command";
 
 function App() {
-  useStreetFighter({
+  useStreetFightingCommand({
     onHadouken: () => console.log("Hadouken!"),
     onShoryuken: () => console.log("Shoryuken!"),
     onTatsumaki: () => console.log("Tatsumaki!"),
@@ -74,7 +74,7 @@ Enable only specific commands:
 
 ```tsx
 // Only Hadouken is detected
-useStreetFighter({
+useStreetFightingCommand({
   onHadouken: () => console.log("Hadouken!"),
 });
 ```
@@ -92,7 +92,7 @@ import {
   useSpinningBirdKick,
   useShinkuHadouken,
   useShunGokuSatsu,
-} from "use-street-fighter";
+} from "use-street-fighting-command";
 
 function App() {
   // Motion commands
@@ -126,7 +126,7 @@ function App() {
 
 ## Options
 
-### useStreetFighter
+### useStreetFightingCommand
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|

@@ -10,12 +10,12 @@ import {
   simulateSpinningBirdKick,
   simulateTatsumaki1P,
 } from "./test-utils";
-import { useStreetFighter } from "./useStreetFighter";
+import { useStreetFightingCommand } from "./useStreetFightingCommand";
 
-describe("useStreetFighter", () => {
+describe("useStreetFightingCommand", () => {
   it("should detect Hadouken when only onHadouken is provided", () => {
     const onHadouken = vi.fn();
-    renderHook(() => useStreetFighter({ onHadouken }));
+    renderHook(() => useStreetFightingCommand({ onHadouken }));
 
     simulateHadouken1P();
 
@@ -25,7 +25,7 @@ describe("useStreetFighter", () => {
   it("should detect multiple commands when multiple callbacks are provided", () => {
     const onHadouken = vi.fn();
     const onTatsumaki = vi.fn();
-    renderHook(() => useStreetFighter({ onHadouken, onTatsumaki }));
+    renderHook(() => useStreetFightingCommand({ onHadouken, onTatsumaki }));
 
     simulateHadouken1P();
     simulateTatsumaki1P();
@@ -39,7 +39,7 @@ describe("useStreetFighter", () => {
     const onSpinningBirdKick = vi.fn();
 
     renderHook(() =>
-      useStreetFighter({
+      useStreetFightingCommand({
         onSonicBoom,
         onSpinningBirdKick,
       }),
@@ -54,7 +54,7 @@ describe("useStreetFighter", () => {
 
   it("should use 2P side for all commands when side is set to 2P", () => {
     const onHadouken = vi.fn();
-    renderHook(() => useStreetFighter({ side: "2P", onHadouken }));
+    renderHook(() => useStreetFightingCommand({ side: "2P", onHadouken }));
 
     // 1P command should not work
     simulateHadouken1P();
@@ -67,7 +67,7 @@ describe("useStreetFighter", () => {
 
   it("should not detect commands when callback is not provided", () => {
     const onHadouken = vi.fn();
-    renderHook(() => useStreetFighter({ onHadouken }));
+    renderHook(() => useStreetFightingCommand({ onHadouken }));
 
     // Tatsumaki command should not trigger Hadouken since onTatsumaki is not provided
     simulateTatsumaki1P();

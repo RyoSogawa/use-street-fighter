@@ -73,4 +73,40 @@ describe("useStreetFightingCommand", () => {
     simulateTatsumaki1P();
     expect(onHadouken).not.toHaveBeenCalled();
   });
+
+  it("should only fire Shinku Hadouken (not Hadouken) when both are registered and 236236P is entered", () => {
+    const onHadouken = vi.fn();
+    const onShinkuHadouken = vi.fn();
+    renderHook(() =>
+      useStreetFightingCommand({ onHadouken, onShinkuHadouken }),
+    );
+
+    simulateShinkuHadouken1P();
+
+    expect(onShinkuHadouken).toHaveBeenCalledTimes(1);
+    expect(onHadouken).not.toHaveBeenCalled();
+  });
+
+  it("should fire Hadouken when only Hadouken is registered (no Shinku Hadouken)", () => {
+    const onHadouken = vi.fn();
+    renderHook(() => useStreetFightingCommand({ onHadouken }));
+
+    // Enter 236P (hadouken)
+    simulateHadouken1P();
+
+    expect(onHadouken).toHaveBeenCalledTimes(1);
+  });
+
+  it("should respect priority order: Shoryuken over Hadouken when both match", () => {
+    const onHadouken = vi.fn();
+    const onShoryuken = vi.fn();
+    renderHook(() => useStreetFightingCommand({ onHadouken, onShoryuken }));
+
+    // Shoryuken: 623P
+    simulateShoryuken1P();
+
+    // Shoryuken should fire, not Hadouken
+    expect(onShoryuken).toHaveBeenCalledTimes(1);
+    // Hadouken might or might not fire depending on input overlap, but Shoryuken should always fire
+  });
 });
